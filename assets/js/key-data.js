@@ -536,7 +536,7 @@ export class KeyBoard {
 							type: "key",
 							size: "modifier",
 							name: "MetaLeft",
-							main: "",
+							main: "command",
 							sub: null,
 						},
 						{
