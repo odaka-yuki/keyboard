@@ -9,6 +9,68 @@ import { KeyBoard } from "./key-data.js";
 
 	const keyBoard = new KeyBoard();
 	const keyBoardElement = document.getElementById("js_key_board");
+	const displayElement  = document.getElementById("js_display");
+
+
+	const addEventDisplay = () => {
+		displayElement.addEventListener("input", (e) => {
+			console.log(e);
+
+			const brackets = [
+				{
+					open: "(",
+					close: ")",
+				},
+				{
+					open: "{",
+					close: "}",
+				},
+				{
+					open: "[",
+					close: "]",
+				},
+				{
+					open: "\"",
+					close: null,
+				},
+				{
+					open: "'",
+					close: null,
+				},
+				{
+					open: "`",
+					close: null,
+				},
+				{
+					open: "<",
+					close: ">",
+				},
+			];
+
+			const matchBrackets = Object.entries(brackets).filter(([key, value]) => e.data === value.open);
+			const position = e.target.selectionStart;
+			const beforeValue = displayElement.value;
+
+			if (matchBrackets.length) {
+				const bracket = matchBrackets[0][1];
+				const addLetter = bracket.close ? bracket.close : bracket.open;
+				
+				console.log(bracket, addLetter);
+
+				displayElement.value = beforeValue.slice(0, e.target.selectionStart) + addLetter + beforeValue.slice(e.target.selectionStart);
+				e.target.selectionStart = position;
+				e.target.setSelectionRange(e.target.selectionStart, e.target.selectionStart);
+			}
+
+			// TODO: textareaのinputイベントだとenterとbackspaceなどの区別ができない
+			// if (e.data === null) {
+			// 	displayElement.value = beforeValue.slice(0, position) + "\t\n" + beforeValue.slice(position);
+			// 	e.target.selectionStart = position + 1;
+			// 	e.target.setSelectionRange(e.target.selectionStart, e.target.selectionStart);
+			// }
+		});
+	};
+
 
 	const generateKeyBoard = (data) => {
 		const type = data.type;
@@ -54,14 +116,14 @@ import { KeyBoard } from "./key-data.js";
 
 		const modifyKey = (e) => {
 
-			e.preventDefault();
+			// e.preventDefault();
 
-			const keyName = e.code;
-			const key = keyBoardElement.querySelector("[data-key_name='" + keyName + "']");
+			const key = keyBoardElement.querySelector("[data-key_name='" + e.code + "']");
 
 			if (DEBUG) {
-				console.log("keyName: ", keyName);
+				console.log("e.code: ", e.code);
 			}
+
 			switch (e.type) {
 				case "keydown":
 					key.classList.add("is_active");
@@ -82,6 +144,7 @@ import { KeyBoard } from "./key-data.js";
 	const init = () => {
 		generateKeyBoard(keyBoard.data);
 		addEventKeyBoard();
+		addEventDisplay();
 	};
 
 	init();
