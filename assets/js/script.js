@@ -5,6 +5,8 @@ import { KeyBoard } from "./key-data.js";
 
 (() => {
 
+	const DEBUG = false;
+
 	const keyBoard = new KeyBoard();
 	const keyBoardElement = document.getElementById("js_key_board");
 
@@ -32,6 +34,10 @@ import { KeyBoard } from "./key-data.js";
 			key.className = "bl_keyBoard_key";
 			key.classList.add("bl_keyBoard_key__" + data.size);
 
+			if (data.name) {
+				key.dataset["key_name"] = data.name;
+			}
+
 			if (data.list) {
 				const children = data.list.map(generateKeyBoard);
 				Array.from(children).forEach(child => key.appendChild(child));
@@ -44,7 +50,34 @@ import { KeyBoard } from "./key-data.js";
 		}
 	};
 
-	const addEventKeyBoard = () => {};
+	const addEventKeyBoard = () => {
+
+		const modifyKey = (e) => {
+
+			e.preventDefault();
+
+			const keyName = e.code;
+			const key = keyBoardElement.querySelector("[data-key_name='" + keyName + "']");
+
+			if (DEBUG) {
+				console.log("keyName: ", keyName);
+			}
+			switch (e.type) {
+				case "keydown":
+					key.classList.add("is_active");
+					break;
+
+				case "keyup":
+					key.classList.remove("is_active");
+					break;
+			}
+		};
+
+		window.addEventListener("keydown", modifyKey);
+		
+		window.addEventListener("keyup", modifyKey);
+
+	};
 
 	const init = () => {
 		generateKeyBoard(keyBoard.data);
