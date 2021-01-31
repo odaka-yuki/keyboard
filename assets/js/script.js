@@ -35,6 +35,7 @@ import { KeyBoard } from "./key-data.js";
 			if (data.list) {
 				const children = data.list.map(generateKeyBoard);
 				Array.from(children).forEach(child => key.appendChild(child));
+				key.classList.add("bl_keyBoard_key__container");
 			} else {
 				key.textContent = data.main;
 			}
