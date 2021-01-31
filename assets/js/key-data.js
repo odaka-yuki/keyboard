@@ -636,17 +636,3 @@ export class KeyBoard {
 		return target;
 	}
 }
-
-
-export class KeySize {
-	constructor() {
-		this.data = {
-			normal: 1.6,
-			half: 1.6,
-			modifier: 2.1,
-			eject: 2.6,
-			shift: 3.1,
-			space: 6.4,
-		};
-	}
-}
