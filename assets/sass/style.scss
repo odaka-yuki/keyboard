@@ -24,7 +24,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	padding: 16px;
-	// background-color: rgb(171, 146, 173);
 
 	&_inner {
 		flex: 1 1 auto;
@@ -82,12 +81,8 @@ body {
 		background-color: #FFF;
 
 		&.is_active {
-			background-color: rgb(245, 245, 245);
-			box-shadow: 0 0 8px rgba(0, 0, 0, .5) inset;
-		}
-
-		&.bl_keyBoard_key__normal {
-
+			background-color: rgb(29, 107, 133);
+			color: #FFF;
 		}
 
 		&.bl_keyBoard_key__modifier {
@@ -96,6 +91,23 @@ body {
 
 		&.bl_keyBoard_key__eject {
 			width: $size * $eject;
+		}
+
+		&.bl_keyBoard_key__enter {
+			position: relative;
+			width: $size * $eject;
+			border-radius: $r $r 0 $r;
+
+			&::after {
+				content: "";
+				position: absolute;
+				top: 100%;
+				right: 0;
+				background-color: inherit;
+				width: $size * $modifier + 8px;
+				height: $size + 8px;
+				border-radius: 0 0 $r $r;
+			}
 		}
 
 		&.bl_keyBoard_key__shift {
@@ -125,6 +137,15 @@ body {
 				margin-top: 1px;
 				border-radius: 0 0 $r $r;
 			}
+		}
+
+		&.bl_keyBoard_key[data-key_name=ArrowLeft],
+		&.bl_keyBoard_key[data-key_name=ArrowRight],
+		&.bl_keyBoard_key[data-key_name=ArrowUp],
+		&.bl_keyBoard_key[data-key_name=ArrowDown] {
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 }
