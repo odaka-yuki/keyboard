@@ -2,7 +2,46 @@
 
 * {
 	box-sizing: border-box;
+	font-family: monospace;
 }
+
+$body_padding: 16px;
+
+body {
+	margin: 0;
+	padding: $body_padding;
+}
+
+.ly_main {
+	display: flex;
+	flex-direction: column;
+	min-height: calc(100vh - (#{$body_padding} * 2));
+}
+
+
+.bl_display {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	padding: 16px;
+	// background-color: rgb(171, 146, 173);
+
+	&_inner {
+		flex: 1 1 auto;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&_textArea {
+		flex: 1 1 auto;
+		width: 100%;
+		padding: 16px;
+		background-color: rgb(5, 33, 49);
+		font-size: 18px;
+		color: #FFF;
+	}
+}
+
 
 .bl_keyBoard {
 	$bg: rgb(58, 58, 58);
@@ -13,6 +52,9 @@
 	$space: 3.875;
 	$margin: 8px;
 	$r: 8px;
+
+	width: fit-content;
+	margin: 0 auto;
 
 	&_inner {
 		width: fit-content;
